@@ -13,8 +13,6 @@ import {
 } from "h3";
 import { Plugin } from "obsidian";
 
-// Remember to rename these classes and interfaces!
-
 interface ExposeHttpPluginSettings {
 	port: number;
 }
@@ -59,10 +57,13 @@ export default class ExposeHttpPlugin extends Plugin {
 		this.httpServer = createServer(toNodeListener(this.server)).listen(
 			this.settings.port,
 		);
+
+		console.log("HTTP server started on port", this.settings.port);
 	}
 
 	onunload() {
 		this.httpServer?.close();
+		console.log("HTTP server stopped");
 	}
 
 	async loadSettings() {
